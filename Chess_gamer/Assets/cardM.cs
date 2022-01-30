@@ -20,6 +20,6 @@ public class cardM : MonoBehaviour
     {
         Destroy(this.gameObject);
         GameManager.instance.cardnumber--;
-
+        GameManager.instance.cardHandNumber--;
     }
 }
