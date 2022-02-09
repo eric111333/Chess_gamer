@@ -107,7 +107,7 @@ public class GManger : MonoBehaviour
     }
     public void BlackGame()
     {
-        Application.Quit();
+        SceneManager.LoadScene("main");
     }
     public void Skill()
     {
