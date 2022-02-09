@@ -14,19 +14,26 @@ public class GManger : MonoBehaviour
         instance = this;
     }
 
-    [SerializeField] GameObject pf;
+    //[SerializeField] GameObject pf;
     [SerializeField] Transform cardM;
-    [SerializeField] public Transform no1; 
+    //[SerializeField] public Transform no1; 
     [SerializeField] public Slider bossHpBar;
+    [SerializeField] public Slider playerHpBar;
     public GameObject[] cards;
     private int length;
     private int index;
     private int savelength;
+    public bool skill;
+    [SerializeField] GameObject skillfire;
+    [SerializeField] GameObject fly;
+    [SerializeField] GameObject boom;
     private void Start()
     {
         CreateCard();
         GameManager.instance.bossHP = GameManager.instance.bossHpMax;
         bossHpBar.value = GameManager.instance.bossHP / GameManager.instance.bossHpMax;
+        GameManager.instance.playerHp = GameManager.instance.playerHpMax;
+        playerHpBar.value = GameManager.instance.playerHp / GameManager.instance.playerHpMax;
     }
     private void CreateCard()
     {
@@ -100,7 +107,19 @@ public class GManger : MonoBehaviour
     }
     public void BlackGame()
     {
-        SceneManager.LoadScene("main");
+        Application.Quit();
+    }
+    public void Skill()
+    {
+        skill = true;
+        
+        fly.SetActive(true);
+        Invoke("boomlst", 1f);
+    }
+    void boomlst()
+    {
+        boom.SetActive(true);
+        skillfire.SetActive(true);
     }
 
 }

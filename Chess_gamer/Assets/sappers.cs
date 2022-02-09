@@ -10,9 +10,12 @@ public class sappers : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        this.gameObject.SetActive(false);
     }
 
-    public int saveRound =5;
-
-
+    public int saveRound =0;
+    public int attack = 400;
+    public Text attackText;
+    public Text roundText;
+    public GameObject bullet;
 }

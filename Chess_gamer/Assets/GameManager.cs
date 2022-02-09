@@ -25,7 +25,9 @@ public class GameManager
     }
     int _cardnumber;
     public int cardPlay = 2;
-    public float bossHP=5000;
-    public float bossHpMax=5000;
+    public float bossHP=15000;
+    public float bossHpMax=15000;
+    public float playerHp = 5000;
+    public float playerHpMax = 5000;
     
 }
