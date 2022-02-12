@@ -21,23 +21,27 @@ public class MusketeersCard : MonoBehaviour
     }
     public void OnMouseDown()
     {
-        Destroy(this.gameObject);
-        GameManager.instance.cardnumber--;
-        GameManager.instance.cardHandNumber--;
-        if(Musketeers.instance.saveRound <=0)
+        if (GameManager.instance.cardPlay >= 0)
         {
-            Musketeers.instance.saveRound = 2;
-            Musketeers.instance.attack = 1100;
-            Musketeers.instance.gameObject.SetActive(true);
+            GameManager.instance.cardPlay--;
+            Destroy(this.gameObject);
+            GameManager.instance.cardnumber--;
+            GameManager.instance.cardHandNumber--;
+            if (Musketeers.instance.saveRound <= 0)
+            {
+                Musketeers.instance.saveRound = 2;
+                Musketeers.instance.attack = 1100;
+                Musketeers.instance.gameObject.SetActive(true);
+            }
+            if (Musketeers.instance.gameObject.activeInHierarchy)
+            {
+                Musketeers.instance.saveRound++;
+                Musketeers.instance.attack += 100;
+            }
+            Musketeers.instance.attackText.text = "" + Musketeers.instance.attack;
+            Musketeers.instance.roundText.text = "" + Musketeers.instance.saveRound;
         }
-        if(Musketeers.instance.gameObject.activeInHierarchy)
-        {
-            Musketeers.instance.saveRound++;
-            Musketeers.instance.attack += 100;
-        }
-        Musketeers.instance.attackText.text = "" + Musketeers.instance.attack;
-        Musketeers.instance.roundText.text = "" + Musketeers.instance.saveRound;
-
     }
+
 
 }

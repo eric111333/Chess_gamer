@@ -15,7 +15,7 @@ public class sappersCard : MonoBehaviour
     }
     private void Start()
     {
-        
+
     }
     public void OnMouseEnter()
     {
@@ -28,25 +28,27 @@ public class sappersCard : MonoBehaviour
     }
     public void OnMouseDown()
     {
-
-        //if (sappers.instance.saveRound >0)
-        //sappers.instance.gameObject.SetActive(true);
-        Destroy(this.gameObject);
-        GameManager.instance.cardnumber--;
-        GameManager.instance.cardHandNumber--;
-        if (sappers.instance.saveRound <= 0)
+        if (GameManager.instance.cardPlay >= 0)
         {
-            sappers.instance.saveRound =4;
-            sappers.instance.attack = 400;
-            sappers.instance.gameObject.SetActive(true);
+            GameManager.instance.cardPlay--;
+            //if (sappers.instance.saveRound >0)
+            //sappers.instance.gameObject.SetActive(true);
+            Destroy(this.gameObject);
+            GameManager.instance.cardnumber--;
+            GameManager.instance.cardHandNumber--;
+            if (sappers.instance.saveRound <= 0)
+            {
+                sappers.instance.saveRound = 4;
+                sappers.instance.attack = 400;
+                sappers.instance.gameObject.SetActive(true);
+            }
+            if (sappers.instance.gameObject.activeInHierarchy)
+            {
+                sappers.instance.saveRound++;
+                sappers.instance.attack += 100;
+            }
+            sappers.instance.attackText.text = "" + sappers.instance.attack;
+            sappers.instance.roundText.text = "" + sappers.instance.saveRound;
         }
-        if(sappers.instance.gameObject.activeInHierarchy)
-        {
-            sappers.instance.saveRound++;
-            sappers.instance.attack += 100;
-        }
-        sappers.instance.attackText.text = ""+ sappers.instance.attack;
-        sappers.instance.roundText.text = "" + sappers.instance.saveRound;
-
     }
 }

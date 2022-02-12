@@ -8,29 +8,40 @@ public class ButtonManager : MonoBehaviour
     int bossmodel;
     [SerializeField] GameObject bossattackone;
     [SerializeField] GameObject bossattacktwo;
+    [SerializeField] GameObject bossattackthree;
     [SerializeField] Transform player;
     [SerializeField] GameObject lose;
     [SerializeField] GameObject win;
     private void Start()
     {
-
+        GManger.instance.playerHpBar.value = GameManager.instance.playerHp / GameManager.instance.playerHpMax;
+        GManger.instance.playerHpT.text = "" + GameManager.instance.playerHp;
+        GManger.instance.bossHpBar.value = GameManager.instance.bossHP / GameManager.instance.bossHpMax;
+        GManger.instance.bossHpT.text = "" + GameManager.instance.bossHP;
     }
-    public void NextRound()
+    private void Update()
     {
-        if(GameManager.instance.playerHp <= 0)
+        if (GameManager.instance.playerHp <= 0)
         {
             lose.SetActive(true);
         }
-        if(GameManager.instance.bossHP<=0)
+        if (GameManager.instance.bossHP <= 0)
         {
             win.SetActive(true);
         }
+    }
+    public void NextRound()
+    {
+        GameManager.instance.cardPlay = 1;
+
         if (GManger.instance.skill)
         {
+            GameManager.instance.cardPlay++;
             GameManager.instance.playerHp -= 800;
-            //GManger.instance.playerHpBar.value = GameManager.instance.playerHp / GameManager.instance.playerHpMax;
+            GManger.instance.playerHpBar.value = GameManager.instance.playerHp / GameManager.instance.playerHpMax;
+            GManger.instance.playerHpT.text = "" + GameManager.instance.playerHp;
             GameManager.instance.bossHP -= 2000;
-            //GManger.instance.bossHpBar.value = GameManager.instance.bossHP / GameManager.instance.bossHpMax;
+            GManger.instance.bossHpBar.value = GameManager.instance.bossHP / GameManager.instance.bossHpMax;
         }
 
         bossmodel = Random.Range(0, 8);
@@ -52,10 +63,11 @@ public class ButtonManager : MonoBehaviour
                 sappers.instance.saveRound -= 3;
                 Instantiate(bossattackone, sappers.instance.transform);
             }
-            if (!soldier.instance.gameObject.activeInHierarchy && !Musketeers.instance.gameObject.activeInHierarchy && !sappers.instance.gameObject.activeInHierarchy)
+            if (!soldier.instance.gameObject.activeInHierarchy) //&& !Musketeers.instance.gameObject.activeInHierarchy && !sappers.instance.gameObject.activeInHierarchy)
             {
                 GameManager.instance.playerHp -= 500;
                 GManger.instance.playerHpBar.value = GameManager.instance.playerHp / GameManager.instance.playerHpMax;
+                GManger.instance.playerHpT.text = "" + GameManager.instance.playerHp;
                 Instantiate(bossattackone, player);
             }
 
@@ -76,13 +88,17 @@ public class ButtonManager : MonoBehaviour
             {
                 GameManager.instance.playerHp -= 1000;
                 GManger.instance.playerHpBar.value = GameManager.instance.playerHp / GameManager.instance.playerHpMax;
+                GManger.instance.playerHpT.text = "" + GameManager.instance.playerHp;
             }
 
 
         }
         if (bossmodel == 7)
         {
-            Debug.Log(7);
+            Instantiate(bossattackthree);
+            GameManager.instance.bossHP += 1000;
+            GManger.instance.bossHpT.text = "" + GameManager.instance.bossHP;
+            GManger.instance.bossHpBar.value = GameManager.instance.bossHP / GameManager.instance.bossHpMax;
         }
         if (sappers.instance.saveRound > 0)
         {
@@ -131,5 +147,6 @@ public class ButtonManager : MonoBehaviour
     void BossHp()
     {
         GManger.instance.bossHpBar.value = GameManager.instance.bossHP / GameManager.instance.bossHpMax;
+        GManger.instance.bossHpT.text = "" + GameManager.instance.bossHP;
     }
 }

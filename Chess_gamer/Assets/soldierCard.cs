@@ -20,22 +20,26 @@ public class soldierCard : MonoBehaviour
     }
     public void OnMouseDown()
     {
-        Destroy(this.gameObject);
-        GameManager.instance.cardnumber--;
-        GameManager.instance.cardHandNumber--;
-        if(soldier.instance.saveRound<=0)
+        if (GameManager.instance.cardPlay >= 0)
         {
-            soldier.instance.saveRound = 3;
-            soldier.instance.attack = 700;
-            soldier.instance.gameObject.SetActive(true);
+            GameManager.instance.cardPlay--;
+            Destroy(this.gameObject);
+            GameManager.instance.cardnumber--;
+            GameManager.instance.cardHandNumber--;
+            if (soldier.instance.saveRound <= 0)
+            {
+                soldier.instance.saveRound = 3;
+                soldier.instance.attack = 700;
+                soldier.instance.gameObject.SetActive(true);
+            }
+            if (soldier.instance.gameObject.activeInHierarchy)
+            {
+                soldier.instance.saveRound++;
+                soldier.instance.attack += 100;
+            }
+            soldier.instance.attackText.text = "" + soldier.instance.attack;
+            soldier.instance.roundText.text = "" + soldier.instance.saveRound;
         }
-        if(soldier.instance.gameObject.activeInHierarchy)
-        {
-            soldier.instance.saveRound++;
-            soldier.instance.attack += 100;
-        }
-        soldier.instance.attackText.text = "" + soldier.instance.attack;
-        soldier.instance.roundText.text = "" + soldier.instance.saveRound;
     }
 
 }

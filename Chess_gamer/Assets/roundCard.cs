@@ -15,17 +15,21 @@ public class roundCard : MonoBehaviour
     }
     public void OnMouseDown()
     {
-        Destroy(this.gameObject);
-        GameManager.instance.cardnumber--;
-        GameManager.instance.cardHandNumber--;
-        if (soldier.instance.gameObject.activeInHierarchy)
-            soldier.instance.saveRound += 3;
-        if (Musketeers.instance.gameObject.activeInHierarchy)
-            Musketeers.instance.saveRound += 3;
-        if (sappers.instance.gameObject.activeInHierarchy)
-            sappers.instance.saveRound += 3;
-        sappers.instance.roundText.text = "" + sappers.instance.saveRound;
-        Musketeers.instance.roundText.text = "" + Musketeers.instance.saveRound;
-        soldier.instance.roundText.text = "" + soldier.instance.saveRound;
+        if (GameManager.instance.cardPlay >= 0)
+        {
+            GameManager.instance.cardPlay--;
+            Destroy(this.gameObject);
+            GameManager.instance.cardnumber--;
+            GameManager.instance.cardHandNumber--;
+            if (soldier.instance.gameObject.activeInHierarchy)
+                soldier.instance.saveRound += 3;
+            if (Musketeers.instance.gameObject.activeInHierarchy)
+                Musketeers.instance.saveRound += 3;
+            if (sappers.instance.gameObject.activeInHierarchy)
+                sappers.instance.saveRound += 3;
+            sappers.instance.roundText.text = "" + sappers.instance.saveRound;
+            Musketeers.instance.roundText.text = "" + Musketeers.instance.saveRound;
+            soldier.instance.roundText.text = "" + soldier.instance.saveRound;
+        }
     }
 }

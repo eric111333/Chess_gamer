@@ -15,6 +15,7 @@ public class GameManager
         }
     }
     static GameManager _instance = null;
+
     public int cardmax = 2;
     public int cardHandMax = 5;
     public int cardHandNumber = 0;

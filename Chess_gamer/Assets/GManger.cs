@@ -19,6 +19,8 @@ public class GManger : MonoBehaviour
     //[SerializeField] public Transform no1; 
     [SerializeField] public Slider bossHpBar;
     [SerializeField] public Slider playerHpBar;
+    [SerializeField] public Text playerHpT;
+    [SerializeField] public Text bossHpT;
     public GameObject[] cards;
     private int length;
     private int index;
@@ -29,11 +31,15 @@ public class GManger : MonoBehaviour
     [SerializeField] GameObject boom;
     private void Start()
     {
+        GameManager.instance.cardnumber = 0;
+        GameManager.instance.cardHandNumber = 0;
+        GameManager.instance.cardPlay = 1;
         CreateCard();
         GameManager.instance.bossHP = GameManager.instance.bossHpMax;
         bossHpBar.value = GameManager.instance.bossHP / GameManager.instance.bossHpMax;
         GameManager.instance.playerHp = GameManager.instance.playerHpMax;
         playerHpBar.value = GameManager.instance.playerHp / GameManager.instance.playerHpMax;
+        GetCard();
     }
     private void CreateCard()
     {
@@ -112,7 +118,7 @@ public class GManger : MonoBehaviour
     public void Skill()
     {
         skill = true;
-        
+        GameManager.instance.cardPlay++;
         fly.SetActive(true);
         Invoke("boomlst", 1f);
     }
